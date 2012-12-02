@@ -1,0 +1,18 @@
+# conkyrc file for dzen
+###
+alignment br
+gap_x 1290
+own_window_colour ffee99
+use_xft yes
+xftfont Sans:size=16
+#out_to_console yes
+#out_to_x no
+override_utf8_locale yes
+update_interval 2
+total_run_times 0
+short_units yes
+pad_percents 3
+
+TEXT
+TODO:
+${exec cat /home/pschmitt/docs/.notes/TODO}

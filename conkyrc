@@ -1,0 +1,34 @@
+# conkyrc file for dzen
+###
+#lua_load ~/.config/conky/conky_lua_scripts.lua
+background no
+out_to_console yes
+out_to_x no
+override_utf8_locale yes
+update_interval 1
+total_run_times 0
+mpd_host LaXLinux
+mpd_port 6600
+short_units yes
+pad_percents 3
+use_spacer right 
+if_up_strictness address
+
+TEXT
+${if_existing /tmp/update_count}^fg(\#515056)^i(/home/pschmitt/pictures/icons/xbm8x8/pacman.xbm) ^fg()${execi 1800 cat /tmp/update_count} \
+^fg(\#303030)| $endif^fg(\#515056)\
+${if_existing /home/pschmitt/Maildir/inbox/new}^fg(\#515056)^i(/home/pschmitt/pictures/icons/xbm8x8/mail.xbm)^fg() ${execi 300 ls -1 /home/pschmitt/Maildir/inbox/new|sed 's|/.*$||'|tr '\n' ' '|wc -w} \
+^fg(\#303030)| $endif^fg(\#515056)\
+${if_existing /sys/class/power_supply/BAT1}${if_match ${battery_percent BAT1}> 50}^i(/home/pschmitt/pictures/icons/xbm8x8/bat_full_02.xbm)$else${if_match ${battery_percent BAT1} > 10}^i(/home/pschmitt/pictures/icons/xbm8x8/bat_low_02.xbm)$else^i(/home/pschmitt/pictures/icons/xbm8x8/bat_empty_02.xbm)$endif$endif^fg() ${battery_percent BAT1}^fg(\#515056)% \
+^fg(\#303030)| $endif\
+^fg()^fg(\#515056)^i(/home/pschmitt/pictures/icons/xbm8x8/cpu.xbm)^fg(\#909090) ^fg()${loadavg 1 2 3} \
+^fg(\#303030)|^fg(\#515056) ^i(/home/pschmitt/pictures/icons/xbm8x8/mem.xbm) ^fg(\#909090)${memperc}^fg(\#515056)% \
+^fg(\#303030)|^fg(\#515056) ^i(/home/pschmitt/pictures/icons/xbm8x8/diskette.xbm) ^fg()${to_bytes ${fs_used /home}} \
+^fg(\#303030)|^fg(\#515056) \
+${if_gw}${if_up wlan0}^fg(\#515056)^i(/home/pschmitt/pictures/icons/xbm8x8/wifi_02.xbm) ${if_match ${upspeedf wlan0} > 1}^fg(\#0a0)$else^fg(\#515056)$endif^i(/home/pschmitt/pictures/icons/xbm8x8/net_up_01.xbm) ^fg(\#909090)${upspeedf wlan0}${if_match ${downspeedf wlan0} > 1}^fg(\#0a0)$else^fg(\#515056)$endif ^i(/home/pschmitt/pictures/icons/xbm8x8/net_down_01.xbm) ^fg(\#909090)${downspeedf wlan0}$else^i(/home/pschmitt/pictures/icons/xbm8x8/net_wired.xbm) ${if_match ${upspeedf} > 1}^fg(\#0a0)$else^fg(\#515056)$endif^i(/home/pschmitt/pictures/icons/xbm8x8/net_up_01.xbm) ^fg(\#909090)${upspeedf}${if_match ${downspeedf} > 1}^fg(\#0a0)$else^fg(\#515056)$endif ^i(/home/pschmitt/pictures/icons/xbm8x8/net_down_01.xbm) ^fg(\#909090)${downspeedf}$endif $else^fg(\#a00)NC$endif \
+^fg(\#303030)|^fg(\#515056) \
+^ca(1, mpc toggle)^ca(3, /home/pschmitt/bin/mpd_switch_host.sh)${if_mpd_playing}^fg(\#0a0)$else^fg(\#a00)$endif^i(/home/pschmitt/pictures/icons/xbm8x8/note.xbm)^fg() ${scroll 15 5 ${mpd_artist} - ${mpd_title}}^ca()^ca() \
+^fg(\#303030)|^fg(\#515056) \
+^ca(3,amixer set Master toggle > /dev/null)^ca(4,amixer -c 0 sset Master 1+ unmute > /dev/null)^ca(5,amixer -c 0 sset Master 1- unmute > /dev/null)${if_empty ${exec amixer -c 0 get Master | awk '/Playback/ { gsub(/[\[\]]/, null, $6); print $6 }' | grep "on"}}^fg(\#a00)$endif^i(/home/pschmitt/pictures/icons/xbm8x8/spkr_01.xbm) ^fg()${exec amixer -c 0 get Master | awk '/dB/ {gsub(/[\[\]dB]/, null, $5); print $5}'}^fg(\#515056)dB^ca()^ca()^ca() \
+^fg(\#303030)|^fg(\#515056) \
+^i(/home/pschmitt/pictures/icons/xbm8x8/clock.xbm)^fg() ${time %d^fg(#515056)/^fg()%m^fg(#515056)/^fg()%Y^fg(#007b8c)_^fg(#5f656b)%a^fg() %H^fg(#515056):^fg()%M^fg(#515056):^fg()%S}
