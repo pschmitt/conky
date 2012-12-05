@@ -31,4 +31,4 @@ ${if_gw}${if_up wlan0}^fg(\#515056)^i(/home/pschmitt/pictures/icons/xbm8x8/wifi_
 ^fg(\#303030)|^fg(\#515056) \
 ^ca(3,amixer set Master toggle > /dev/null)^ca(4,amixer -c 0 sset Master 1+ unmute > /dev/null)^ca(5,amixer -c 0 sset Master 1- unmute > /dev/null)${if_empty ${exec amixer -c 0 get Master | awk '/Playback/ { gsub(/[\[\]]/, null, $6); print $6 }' | grep "on"}}^fg(\#a00)$endif^i(/home/pschmitt/pictures/icons/xbm8x8/spkr_01.xbm) ^fg()${exec amixer -c 0 get Master | awk '/dB/ {gsub(/[\[\]dB]/, null, $5); print $5}'}^fg(\#515056)dB^ca()^ca()^ca() \
 ^fg(\#303030)|^fg(\#515056) \
-^i(/home/pschmitt/pictures/icons/xbm8x8/clock.xbm)^fg() ${time %d^fg(#515056)/^fg()%m^fg(#515056)/^fg()%Y^fg(#007b8c)_^fg(#5f656b)%a^fg() %H^fg(#515056):^fg()%M^fg(#515056):^fg()%S}
+^i(/home/pschmitt/pictures/icons/xbm8x8/clock.xbm)^fg() ^ca(1, /home/pschmitt/bin/bigdate.sh)${time %d^fg(#515056)/^fg()%m^fg(#515056)/^fg()%Y^fg(#007b8c)_^fg(#5f656b)%a^fg() %H^fg(#515056):^fg()%M^fg(#515056):^fg()%S}^ca()
