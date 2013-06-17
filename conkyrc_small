@@ -1,0 +1,26 @@
+# conkyrc file for dzen
+###
+#lua_load ~/.config/conky/conky_lua_scripts.lua
+background no
+out_to_console yes
+out_to_x no
+override_utf8_locale yes
+update_interval 1
+total_run_times 0
+mpd_host LaXLinux
+mpd_port 6600
+short_units yes
+pad_percents 2 
+use_spacer right 
+if_up_strictness address
+
+TEXT
+${if_existing /sys/class/power_supply/BAT1}${if_match ${battery_percent BAT1}> 50}^i(/home/pschmitt/pictures/icons/xbm8x8/bat_full_02.xbm)$else${if_match ${battery_percent BAT1} > 10}^i(/home/pschmitt/pictures/icons/xbm8x8/bat_low_02.xbm)$else^i(/home/pschmitt/pictures/icons/xbm8x8/bat_empty_02.xbm)$endif$endif^fg() ${battery_percent BAT1}^fg(\#515056)% \
+^fg(\#303030)| $endif\
+^fg()${execi 120 /home/pschmitt/bin/ipee -k } \
+^fg(\#303030)|^fg(\#515056) \
+^i(/home/pschmitt/pictures/icons/xbm8x8/diskette.xbm) ^fg()${to_bytes ${fs_used /home}} \
+^fg(\#303030)|^fg(\#515056) \
+^ca(3,pamixer --toggle-mute)^ca(4,pamixer --increase 5; pamixer --unmute)^ca(5,pamixer --decrease 5)${if_empty ${exec amixer -c 0 get Master | awk '/Playback/ { gsub(/[\[\]]/, null, $6); print $6 }' | grep "on"}}^fg(\#a00)$endif^i(/home/pschmitt/pictures/icons/xbm8x8/spkr_01.xbm) ^fg()${exec pamixer --get-volume}^fg(\#515056)%^ca()^ca()^ca() \
+^fg(\#303030)|^fg(\#515056) \
+^i(/home/pschmitt/pictures/icons/xbm8x8/clock.xbm)^fg() ^ca(1, /home/pschmitt/bin/bigdate.sh)${time %d^fg(#515056)/^fg()%m^fg(#515056)/^fg()%Y^fg(#007b8c)_^fg(#5f656b)%a^fg() %H^fg(#515056):^fg()%M^fg(#515056):^fg()%S}^ca()
