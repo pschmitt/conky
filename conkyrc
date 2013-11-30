@@ -21,7 +21,7 @@ ${if_existing /home/pschmitt/Maildir/inbox/new}^fg(\#515056)^i(/home/pschmitt/pi
 ^fg(\#303030)| $endif^fg(\#515056)\
 ${if_existing /sys/class/power_supply/BAT1}${if_match ${battery_percent BAT1}> 50}^i(/home/pschmitt/pictures/icons/xbm8x8/bat_full_02.xbm)$else${if_match ${battery_percent BAT1} > 10}^i(/home/pschmitt/pictures/icons/xbm8x8/bat_low_02.xbm)$else^i(/home/pschmitt/pictures/icons/xbm8x8/bat_empty_02.xbm)$endif$endif^fg() ${battery_percent BAT1}^fg(\#515056)% \
 ^fg(\#303030)| $endif\
-^fg()${execi 120 /home/pschmitt/bin/ipee -k } \
+^fg()${texeci 120 /home/pschmitt/bin/ipee -k } \
 ^fg(\#303030)| \
 ^fg(\#515056)^i(/home/pschmitt/pictures/icons/xbm8x8/cpu.xbm)^fg(\#909090) ^fg()${loadavg 1 2 3} \
 ^fg(\#303030)|^fg(\#515056) ^i(/home/pschmitt/pictures/icons/xbm8x8/mem.xbm) ^fg(\#909090)${memperc}^fg(\#515056)% \
