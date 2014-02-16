@@ -10,8 +10,8 @@ total_run_times 0
 mpd_host LaXLinux
 mpd_port 6600
 short_units yes
-pad_percents 2 
-use_spacer right 
+pad_percents 2
+use_spacer right
 if_up_strictness address
 
 TEXT
@@ -31,6 +31,6 @@ ${if_gw}${if_up wlan0}^fg(\#515056)^i(/home/pschmitt/pictures/icons/xbm8x8/wifi_
 ^fg(\#303030)|^fg(\#515056) \
 ^ca(1, mpc toggle)^ca(3, /home/pschmitt/bin/mpd_switch_host.sh)${if_mpd_playing}^fg(\#0a0)$else^fg(\#a00)$endif^i(/home/pschmitt/pictures/icons/xbm8x8/note.xbm)^fg() ${scroll 15 5 ${mpd_artist} - ${mpd_title}}^ca()^ca() \
 ^fg(\#303030)|^fg(\#515056) \
-^ca(3,pamixer --toggle-mute)^ca(4,pamixer --allow-boost --increase 5; pamixer --unmute)^ca(5,pamixer --decrease 5)${if_empty ${exec amixer -c 0 get Master | awk '/Playback/ { gsub(/[\[\]]/, null, $6); print $6 }' | grep "on"}}^fg(\#a00)$endif^i(/home/pschmitt/pictures/icons/xbm8x8/spkr_01.xbm) ^fg()${exec pamixer --get-volume}^fg(\#515056)%^ca()^ca()^ca() \
+^ca(3,/home/pschmitt/bin/vol.sh m)^ca(4,/home/pschmitt/bin/vol.sh i)^ca(5,/home/pschmitt/bin/vol.sh d)${if_empty ${exec pamixer --get-mute | grep false}}^fg(\#a00)$endif^i(/home/pschmitt/pictures/icons/xbm8x8/spkr_01.xbm) ^fg()${exec pamixer --get-volume}^fg(\#515056)%^ca()^ca()^ca() \
 ^fg(\#303030)|^fg(\#515056) \
 ^i(/home/pschmitt/pictures/icons/xbm8x8/clock.xbm)^fg() ^ca(1, /home/pschmitt/bin/bigdate.sh)${time %d^fg(#515056)/^fg()%m^fg(#515056)/^fg()%Y^fg(#007b8c)_^fg(#5f656b)%a^fg() %H^fg(#515056):^fg()%M^fg(#515056):^fg()%S}^ca()
