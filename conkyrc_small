@@ -10,8 +10,8 @@ total_run_times 0
 mpd_host LaXLinux
 mpd_port 6600
 short_units yes
-pad_percents 2 
-use_spacer right 
+pad_percents 2
+use_spacer right
 if_up_strictness address
 
 TEXT
